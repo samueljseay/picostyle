@@ -1,5 +1,3 @@
-import { prependOnceListener } from "cluster"
-
 var _id = 0
 var sheet = document.head.appendChild(document.createElement("style")).sheet
 
