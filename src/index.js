@@ -56,7 +56,7 @@ export default function(h, options) {
   return options.returnObject ? { style: style, css: css } : style
   function style(nodeName) {
     return function(decls) {
-      return (props, context) => {
+      return function(props, context) {
         var nodeDecls = typeof decls == "function" ? decls(props) : decls
         props.class = [css(nodeDecls), props.class].filter(Boolean).join(" ")
         return h(nodeName, props, context)
