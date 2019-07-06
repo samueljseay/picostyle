@@ -1,3 +1,5 @@
+import { prependOnceListener } from "cluster"
+
 var _id = 0
 var sheet = document.head.appendChild(document.createElement("style")).sheet
 
@@ -54,14 +56,10 @@ export default function(h, options) {
   return options.returnObject ? { style: style, css: css } : style
   function style(nodeName) {
     return function(decls) {
-      return function(attributes, children) {
-        attributes = attributes || {}
-        children = attributes.children || children
-        var nodeDecls = typeof decls == "function" ? decls(attributes) : decls
-        attributes.class = [css(nodeDecls), attributes.class]
-          .filter(Boolean)
-          .join(" ")
-        return h(nodeName, attributes, children)
+      return (props, context) => {
+        var nodeDecls = typeof decls == "function" ? decls(props) : decls
+        props.class = [css(nodeDecls), props.class].filter(Boolean).join(" ")
+        return h(nodeName, props, context)
       }
     }
   }
