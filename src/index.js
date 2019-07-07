@@ -57,7 +57,7 @@ export default function(h, options) {
       return function(props, context) {
         var nodeDecls = typeof decls == "function" ? decls(props) : decls
         props.class = [css(nodeDecls), props.class].filter(Boolean).join(" ")
-        return h(nodeName, props, context)
+        return h(nodeName, props, context || {})
       }
     }
   }
